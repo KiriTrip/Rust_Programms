@@ -1,16 +1,28 @@
-enum MathOperations {
-    Add(f64, f64),
-    Sub(f64, f64),
-    Mul(f64, f64),
-    Div(f64, f64)
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
 }
-fn main() {
-    let mo = MathOperations::Add(18.0, 9.0);
 
-    match mo {
-        MathOperations::Add(a, b) => println!("{}", a + b),
-        MathOperations::Sub(a, b) => println!("{}", a - b),
-        MathOperations::Mul(a, b) => println!("{}", a * b),
-        MathOperations::Div(a, b) => println!("{}", a / b)
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {state:?}!");
+            25
+        }
     }
+}
+
+fn main() {
+    value_in_cents(Coin::Quarter(UsState::Alaska));
 }
