@@ -1,28 +1,32 @@
-#[derive(Debug)]
-enum UsState {
-    Alabama,
-    Alaska,
-}
+mod generator {
+    use rand::Rng;
+    const LOW: u8 = 1;
+    const HIGH: u8 = 15;
 
-enum Coin {
-    Penny,
-    Nickel,
-    Dime,
-    Quarter(UsState),
-}
-
-fn value_in_cents(coin: Coin) -> u8 {
-    match coin {
-        Coin::Penny => 1,
-        Coin::Nickel => 5,
-        Coin::Dime => 10,
-        Coin::Quarter(state) => {
-            println!("State quarter from {state:?}!");
-            25
+    pub struct  RandomNumber {
+        pub value: u8,
+    }
+    impl RandomNumber {
+        pub fn new(value: u8) -> Self {
+            Self {
+                value
+            }
         }
+    }
+
+
+    pub fn generate() -> RandomNumber {
+        let random_number = rand::thread_rng().gen_range(LOW..=HIGH);
+        RandomNumber::new(random_number)
     }
 }
 
+use generator::generate;
+
+use generator::generate as gen;
+
 fn main() {
-    value_in_cents(Coin::Quarter(UsState::Alaska));
+    let random = generate();
+    let random1 = gen();
+    println!("Random number is {}", random.value);
 }
