@@ -1,26 +1,6 @@
-mod generator; // Добовляем модуль
-
-mod prelude { // Создаём модуль в который поместим все использования и нужные вещи.
-    pub const LOW: u8 = 1; // Объявляем публичную константу, что бы работать с ней не только в этой зоне видимости
-    pub const HIGH: u8 = 15; // Аналогично, что и вверху
-    pub use crate::generator::generate; // Тут публично объявляем путь до нужно функции, нужно объявить публо чтобы работать с ней
-    pub use crate::generator::generate as gen; // Тут мы сделанир шорт каст, тоесть так сказать переназвали функцию, чтобы к ней обращаться
-    pub use crate::generator::{other_fn}; // Тут мы вызвали определённую функцию, которая нам нужна из модуля
-
-    //use generator::other_fn; // Это не так проктично, лучше как описывал выше
-    //use generator::*; // Тут мы берём всё из модуля, но там может быть много всего и это не всегда проктично
-}
-
-use prelude::*; // Тут мы берём всё что перечисляли в прилюдияхх и можем с этим работать
+mod shapes;
 
 fn main() {
-    other_fn();
-
-    let random = generate();
-    let random1 = gen();
-    println!("Random number is {}", random.value);
-}
-
-pub fn shared() { // Та самая функция, которую вызывали через Super.
-    println!("Shared");
+    println!("Circle area: {}", shapes::Circle { radius: 7. }.get_area());
+    println!("Rectangle area: {}", shapes::Rectangle::new(5., 4.).get_area());
 }
